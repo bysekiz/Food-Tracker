@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e92f6d04ee084b43bebcc0bd06a22de2" Name="Diagram1">
+        <EntityTypeShape EntityType="FoodTrackerDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodTrackerDBModel.tblCategory" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodTrackerDBModel.tblRestaurant" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodTrackerDBModel.tblStarNumbers" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodTrackerDBModel.tblUser" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodTrackerDBModel.tblUsersComments" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="FoodTrackerDBModel.FK_tblRestaurant_tblCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodTrackerDBModel.FK_tblUsersComments_tblRestaurant" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodTrackerDBModel.FK_tblUsersComments_tblStarNumbers" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodTrackerDBModel.FK_tblUsersComments_tblUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

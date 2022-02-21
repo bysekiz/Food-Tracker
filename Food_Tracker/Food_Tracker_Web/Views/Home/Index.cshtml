@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<link href="~/Content/all-home.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/ng.js"></script>
+<body ng-app="foodTracker" ng-controller="accountCntrl">
+    
+    <header class="hero-image">
+        <div>
+            <img class="hero-image" style="background-repeat: no-repeat; width: 100%; height: auto;" id="home" src="~/Assets/hero.jpg" alt="Hero">
+            <button class="btn btn-warning btn-circle btn-circle-lg m-1 btn-pos">
+                <i class="fa-address-book"></i>
+            </button>
+            
+        </div>
+
+        <div class="hero-text">
+            <h1>Sizin için en uygun restoranı bulun</h1>
+
+            <hr />
+            <form method="post" action="@Url.Action("Home", "Index")">
+                <div class="input-group al-center">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control" style="float:left; width:550px;" />
+                        <button type="button" class="btn btn-primary al-center" style="float:left;">
+                            <i class="bi bi-search">Ara</i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+            <hr />
+            <div class="text-center">
+                <a href="" class="btn btn-warning btn-rounded mb-4" data-toggle="modal" data-target="#modalLogin">
+                    Giriş Yap
+                </a>
+            </div>
+        </div>
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Giriş Yap</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Kapat">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <label data-error="wrong" id="searchText"  data-success="right">Email</label>
+                        <div class="md-form mb-5">
+                            <i class="fas fa-user prefix grey-text"></i>
+                            <input type="text" class="form-control validate">
+
+                        </div>
+                        <div class="md-form mb-5">
+                            <label data-error="wrong" id="searchText" data-success="right">Şifre</label>
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="password" class="form-control validate">
+
+                        </div>                     
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-primary" ng-click="GetUser()"type="submit">Get User</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </header>
+
+
+
+</body>
+

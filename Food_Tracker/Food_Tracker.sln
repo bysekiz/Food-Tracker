@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food_Tracker_Web", "Food_Tracker_Web\Food_Tracker_Web.csproj", "{9E448AF4-CDCE-40E8-BE40-CE32D990AD82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food_Tracker_DataAccess", "Food_Tracker_DataAccess\Food_Tracker_DataAccess.csproj", "{0119174B-A47D-44E9-8DFF-561932B25C53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E448AF4-CDCE-40E8-BE40-CE32D990AD82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E448AF4-CDCE-40E8-BE40-CE32D990AD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E448AF4-CDCE-40E8-BE40-CE32D990AD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E448AF4-CDCE-40E8-BE40-CE32D990AD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0119174B-A47D-44E9-8DFF-561932B25C53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0119174B-A47D-44E9-8DFF-561932B25C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0119174B-A47D-44E9-8DFF-561932B25C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0119174B-A47D-44E9-8DFF-561932B25C53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C82676E9-C60D-4EE1-8B0E-9B3294B634E4}
+	EndGlobalSection
+EndGlobal

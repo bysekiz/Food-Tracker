@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FoodTrackerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblRestaurant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="PhoneNumber" Type="bigint" Nullable="false" />
+    <Property Name="Bio" Type="nvarchar" MaxLength="250" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Since" Type="int" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="District" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblStarNumbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StarNumbers" Type="int" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblUsersComments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RestaurantId" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="StarNumbersId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tblRestaurant_tblCategory">
+    <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="1" />
+    <End Role="tblRestaurant" Type="Self.tblRestaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblRestaurant">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsersComments_tblRestaurant">
+    <End Role="tblRestaurant" Type="Self.tblRestaurant" Multiplicity="1" />
+    <End Role="tblUsersComments" Type="Self.tblUsersComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRestaurant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUsersComments">
+        <PropertyRef Name="RestaurantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsersComments_tblStarNumbers">
+    <End Role="tblStarNumbers" Type="Self.tblStarNumbers" Multiplicity="1" />
+    <End Role="tblUsersComments" Type="Self.tblUsersComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblStarNumbers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUsersComments">
+        <PropertyRef Name="StarNumbersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsersComments_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+    <End Role="tblUsersComments" Type="Self.tblUsersComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUsersComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FoodTrackerDBModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblRestaurant" EntityType="Self.tblRestaurant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblStarNumbers" EntityType="Self.tblStarNumbers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUsersComments" EntityType="Self.tblUsersComments" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblRestaurant_tblCategory" Association="Self.FK_tblRestaurant_tblCategory">
+      <End Role="tblCategory" EntitySet="tblCategory" />
+      <End Role="tblRestaurant" EntitySet="tblRestaurant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsersComments_tblRestaurant" Association="Self.FK_tblUsersComments_tblRestaurant">
+      <End Role="tblRestaurant" EntitySet="tblRestaurant" />
+      <End Role="tblUsersComments" EntitySet="tblUsersComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsersComments_tblStarNumbers" Association="Self.FK_tblUsersComments_tblStarNumbers">
+      <End Role="tblStarNumbers" EntitySet="tblStarNumbers" />
+      <End Role="tblUsersComments" EntitySet="tblUsersComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsersComments_tblUser" Association="Self.FK_tblUsersComments_tblUser">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblUsersComments" EntitySet="tblUsersComments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

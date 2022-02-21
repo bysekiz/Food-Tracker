@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FoodTrackerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblRestaurant" Relationship="Self.FK_tblRestaurant_tblCategory" FromRole="tblCategory" ToRole="tblRestaurant" />
+  </EntityType>
+  <EntityType Name="tblRestaurant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="Int64" Nullable="false" />
+    <Property Name="Bio" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Since" Type="Int32" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblRestaurant_tblCategory" FromRole="tblRestaurant" ToRole="tblCategory" />
+    <NavigationProperty Name="tblUsersComments" Relationship="Self.FK_tblUsersComments_tblRestaurant" FromRole="tblRestaurant" ToRole="tblUsersComments" />
+  </EntityType>
+  <EntityType Name="tblStarNumbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StarNumbers" Type="Int32" />
+    <NavigationProperty Name="tblUsersComments" Relationship="Self.FK_tblUsersComments_tblStarNumbers" FromRole="tblStarNumbers" ToRole="tblUsersComments" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblUsersComments" Relationship="Self.FK_tblUsersComments_tblUser" FromRole="tblUser" ToRole="tblUsersComments" />
+  </EntityType>
+  <EntityType Name="tblUsersComments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RestaurantId" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StarNumbersId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblRestaurant" Relationship="Self.FK_tblUsersComments_tblRestaurant" FromRole="tblUsersComments" ToRole="tblRestaurant" />
+    <NavigationProperty Name="tblStarNumbers" Relationship="Self.FK_tblUsersComments_tblStarNumbers" FromRole="tblUsersComments" ToRole="tblStarNumbers" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUsersComments_tblUser" FromRole="tblUsersComments" ToRole="tblUser" />
+  </EntityType>
+  <Association Name="FK_tblRestaurant_tblCategory">
+    <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="1" />
+    <End Role="tblRestaurant" Type="Self.tblRestaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblRestaurant">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsersComments_tblRestaurant">
+    <End Role="tblRestaurant" Type="Self.tblRestaurant" Multiplicity="1" />
+    <End Role="tblUsersComments" Type="Self.tblUsersComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRestaurant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUsersComments">
+        <PropertyRef Name="RestaurantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsersComments_tblStarNumbers">
+    <End Role="tblStarNumbers" Type="Self.tblStarNumbers" Multiplicity="1" />
+    <End Role="tblUsersComments" Type="Self.tblUsersComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblStarNumbers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUsersComments">
+        <PropertyRef Name="StarNumbersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsersComments_tblUser">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+    <End Role="tblUsersComments" Type="Self.tblUsersComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblUsersComments">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FoodTrackerDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tblCategory" EntityType="Self.tblCategory" />
+    <EntitySet Name="tblRestaurant" EntityType="Self.tblRestaurant" />
+    <EntitySet Name="tblStarNumbers" EntityType="Self.tblStarNumbers" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" />
+    <EntitySet Name="tblUsersComments" EntityType="Self.tblUsersComments" />
+    <AssociationSet Name="FK_tblRestaurant_tblCategory" Association="Self.FK_tblRestaurant_tblCategory">
+      <End Role="tblCategory" EntitySet="tblCategory" />
+      <End Role="tblRestaurant" EntitySet="tblRestaurant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsersComments_tblRestaurant" Association="Self.FK_tblUsersComments_tblRestaurant">
+      <End Role="tblRestaurant" EntitySet="tblRestaurant" />
+      <End Role="tblUsersComments" EntitySet="tblUsersComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsersComments_tblStarNumbers" Association="Self.FK_tblUsersComments_tblStarNumbers">
+      <End Role="tblStarNumbers" EntitySet="tblStarNumbers" />
+      <End Role="tblUsersComments" EntitySet="tblUsersComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsersComments_tblUser" Association="Self.FK_tblUsersComments_tblUser">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblUsersComments" EntitySet="tblUsersComments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

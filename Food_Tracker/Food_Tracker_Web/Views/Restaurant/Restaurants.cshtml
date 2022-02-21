@@ -1,0 +1,113 @@
+﻿
+@using Food_Tracker_DataAccess;
+@using Food_Tracker_Model;
+
+
+@{
+    ViewBag.Title = "Restaurants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddUser</h2>
+
+
+<style>
+    .table th {
+        background-color: #fafafa;
+        font-weight: bold;
+    }
+
+    .table-hover thead tr th:hover, .table-hover thead tr:hover th, .table-hover thead tr:hover td, .table-hover thead tr td:hover {
+        background-color: none !important;
+    }
+
+    .thheader {
+        font-size: 12px;
+        text-align: center;
+    }
+</style>
+
+
+<script type="text/javascript">
+
+    app.controller('myCtrl', function ($scope, $http, $timeout) {
+
+        $scope.FindRestaurants = function () {
+            $scope.loading = true;
+
+            $http({
+                method: "POST",
+                url: apiUrl("/Restaurant/FindRestaurants"),
+                dataType: 'json',
+                data: { Text: $('#searchText').val() }
+            }).then(function mySuccess(response) {
+                if (response.data.Success) {
+                    $scope.users = response.data.Users;
+                }
+                else
+                    Error($scope, response.data.error);
+                $scope.loading = false;
+            }, function myError(response) {
+                Error($scope, response.data + " " + response.statusText);
+                $scope.loading = false;
+            });
+        }
+
+    });
+</script>
+
+<div class="row control-group">
+    <div class="input-prepend input-group" style="max-width:750px;padding-left:25px;">
+
+        <input type="text" class="form-control" id="searchText">
+        <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit" ng-click="FindRestaurants()">Restaurant Bul</button>
+        </div>
+
+    </div>
+</div>
+
+<div ng-show="loading==true">
+    Yükleniyor...
+</div>
+
+
+<hr />
+<div class="x_panel tile">
+    <div class="x_content" style="min-height:204px;">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+            <div>
+                <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12 col-xs-12" style="padding-left:0px;margin-bottom:10px">
+
+
+                    <table class="table table-bordered table-condensed table-hover" ng-show="loading==false && users!=undefined && users.length>0">
+                        <tr>
+
+                            <th style="width:80px">Restaurant No</th>
+                            <th style="width:80px">Restaurant Adı</th>
+                            <th style="width:80px">Restaurant Adresi</th>
+                            <th style="width:80px">Restaurant Numarası</th>
+                            <th style="width:80px">Yorumlar</th>
+                            <th style="width:80px">Kategori</th>
+                            <th style="width:80px">Yılı</th>
+
+
+                        </tr>
+                        <tr ng-repeat="restaurant in restaurants">
+                          
+                            <td>{{restaurant.Id}}</td>
+                            <td>{{restaurant.Name}}</td>
+                            <td>{{restaurant.PhoneNumber}}</td>
+                            <td>{{restaurant.Comments}}</td>
+                            <td>{{restaurant.Category}}</td>
+                            <td>{{restaurant.Since | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+                            
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
